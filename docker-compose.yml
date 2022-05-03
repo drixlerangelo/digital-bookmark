@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+    website_builder:
+        build:
+            context: .
+            args:
+            - PHP_IMG=${PHP_IMG}
+        container_name: ${CONTAINER}
+        ports:
+            - 127.0.0.1:${HTTP_PORT}:80
+        volumes:
+            - ./www/:/var/www/html/
+            - ./letsencrypt/data:/var/www/letsencrypt/data
+            - ./letsencrypt/certs:/var/www/letsencrypt/certs
+            - ./apache/container/${CONT_CONF}:/etc/apache2/sites-enabled/website.conf
